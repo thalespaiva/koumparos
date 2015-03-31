@@ -19,22 +19,17 @@
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1,001</td>
-          <td>Lorem</td>
-          <td>ipsum</td>
-          <td>dolor</td>
-          <td>sit</td>
-        </tr>
-        <tr>
-          <td>1,002</td>
-          <td>amet</td>
-          <td>consectetur</td>
-          <td>adipiscing</td>
-          <td>elit</td>
-        </tr>
-      </tbody>
+      {% for class in classes %}
+        <tbody>
+          <tr>
+            <td>{{ class.date }}</td>
+            <td>{{ class.start_time }} - {{ class.finish_time }}</td>
+            <td>{{ class.student }}</td>
+            <td>{{ class.address }}</td>
+            <td>...</td>
+          </tr>
+        </tbody>
+      {% endfor %}
     </table>
   </div>
 
