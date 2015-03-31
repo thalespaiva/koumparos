@@ -1,5 +1,7 @@
 # from django.shortcuts import render
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.http import HttpResponse
 
 from teacher.models import Teacher, Student, Class
 
@@ -17,7 +19,22 @@ def overview(request, id):
 def schedule(request, id):
     info = {
         'teacher': Teacher.objects.filter(id=id)[0],
-        'classes': Class.objects.filter(teacher=id),
         'students': Student.objects.all(),
     }
-    return render_to_response('teacher/schedule.html', info)
+
+    if request.method == "POST":
+        student = Student.objects.filter(id=request.POST['student_id'])[0]
+        teacher = info['teacher']
+        #subject = request.POST['subject']
+        cost = request.POST['price']
+        date = request.POST['class_date']
+        start = request.POST['start_time']
+        finish = request.POST['finish_time']
+
+        new_class = Class(
+            student=student, teacher=teacher, subject='MATH',
+            cost=cost, date=date, start_time=start, finish_time=finish)
+        new_class.save()
+
+    return render_to_response('teacher/schedule.html', info,
+                              RequestContext(request))
