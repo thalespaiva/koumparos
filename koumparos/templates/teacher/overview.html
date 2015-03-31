@@ -29,8 +29,8 @@
                 <th>Status</th>
               </tr>
             </thead>
-            {% for class in classes %}
-              <tbody>
+            <tbody>
+              {% for class in classes %}
                 <tr>
                   <td>{{ class.date }}</td>
                   <td>{{ class.start_time }} - {{ class.finish_time }}</td>
@@ -38,8 +38,8 @@
                   <td>{{ class.address }}</td>
                   <td>...</td>
                 </tr>
-              </tbody>
-            {% endfor %}
+              {% endfor %}
+            </tbody>
           </table>
         </div>
 
