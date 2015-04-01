@@ -11,11 +11,7 @@ from teacher.models import Teacher, Student, Class
 
 
 def overview(request, id):
-    info = {
-        'teacher': Teacher.objects.filter(id=id)[0],
-        'classes': Class.objects.filter(teacher=id),
-        'status_choices': Class.STATUS_CHOICES,
-    }
+
     if request.method == "POST":
         updated_class = request.POST['updated_class']
         tgt_status = request.POST['class_status_' + updated_class]
@@ -24,6 +20,12 @@ def overview(request, id):
         tgt_class.status = tgt_status
         tgt_class.save()
 
+    todo_classes = Class.objects.filter(teacher=id, status=Class.ST_TODO)
+    info = {
+        'teacher': Teacher.objects.filter(id=id)[0],
+        'classes': todo_classes.order_by('date', 'start_time'),
+        'status_choices': Class.STATUS_CHOICES,
+    }
     return render_to_response('teacher/overview.html', info,
                               RequestContext(request))
 
