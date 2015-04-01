@@ -5,4 +5,5 @@ urlpatterns = patterns(
     'teacher.views',
     url(r'(\d+)/overview$', 'overview'),
     url(r'(\d+)/schedule$', 'schedule'),
+    url(r'(\d+)/dashboard$', 'dashboard'),
 )
