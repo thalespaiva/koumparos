@@ -22,11 +22,12 @@
             <table class="table table-condensed table-striped">
               <thead>
                 <tr>
-                  <th class="col-sm-2">Date</th>
-                  <th class="col-sm-2">Time</th>
+                  <th class="col-sm-1.5">Date</th>
+                  <th class="col-sm-1.5">Start</th>
+                  <th class="col-sm-1.5">Finish</th>
                   <th class="col-sm-2">Student</th>
-                  <th class="col-sm-2">Address</th>
-                  <th class="col-sm-2">Earnings</th>
+                  <th class="col-sm-2">Location</th>
+                  <th class="col-sm-1.5">Earnings</th>
                   <th class="col-sm-2">Status</th>
                 </tr>
               </thead>
@@ -34,7 +35,8 @@
                 {% for class in classes %}
                   <tr>
                     <td>{{ class.date }}</td>
-                    <td>{{ class.start_time }} - {{ class.finish_time }}</td>
+                    <td>{{ class.start_time }}</td>
+                    <td>{{ class.finish_time }}</td>
                     <td>{{ class.student }}</td>
                     <td>{{ class.location }}</td>
                     <td>$ {{ class.price }}</td>
