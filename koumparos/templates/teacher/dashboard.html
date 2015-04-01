@@ -1,0 +1,32 @@
+{% extends "teacher/teacher.html" %}
+
+{% block title %}
+  <title>Dashboard</title>
+{% endblock %}
+
+{% block nav_side_bar %}
+  <li><a href="overview">Overview <span class="sr-only">(current)</span></a></li>
+  <li><a href="schedule">Schedule</a></li>
+  <li class="active"><a href="#">Dashboard</a></li>
+{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">Dashboard</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Month Target</h2>
+        {{ month_target }}
+      </div>
+      <div class="col-md-4">
+        <h2># Students</h2>
+      </div>
+      <div class="col-md-4">
+        <h2>Accum/week</h2>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js_extras %}
+{% endblock %}
