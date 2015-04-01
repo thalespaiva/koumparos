@@ -16,7 +16,16 @@ def overview(request, id):
         'classes': Class.objects.filter(teacher=id),
         'status_choices': Class.STATUS_CHOICES,
     }
-    return render_to_response('teacher/overview.html', info)
+    if request.method == "POST":
+        updated_class = request.POST['updated_class']
+        tgt_status = request.POST['class_status_' + updated_class]
+        tgt_class = Class.objects.filter(id=updated_class)[0]
+
+        tgt_class.status = tgt_status
+        tgt_class.save()
+
+    return render_to_response('teacher/overview.html', info,
+                              RequestContext(request))
 
 
 def schedule(request, id):

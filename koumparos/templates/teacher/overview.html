@@ -19,6 +19,8 @@
         <h2 class="sub-header">Near Future</h2>
         <div class="table-responsive">
           <form action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="updated_class" id="updated_class_id" value="">
             <table class="table table-condensed table-striped">
               <thead>
                 <tr>
@@ -41,13 +43,13 @@
                     <td>{{ class.location }}</td>
                     <td>$ {{ class.price }}</td>
                     <td>
-                      <select id="student_id" name="student_id">
+                      <select name="class_status_{{ class.id }}" value="{{ class.id }}" onchange="submit_with_updated_class_id({{ class.id }}, this.form)">
                         {% for choices in status_choices %}
-                          {% if choices.1 == class.status %}
+                          {% ifequal choices.0 class.status %}
                             <option value="{{ choices.0 }}" selected="selected">{{ choices.1 }}</option>
                           {% else %}
                             <option value="{{ choices.0 }}">{{ choices.1 }}</option>
-                          {% endif %}
+                          {% endifequal %}
                         {% endfor %}
                       </select>
                     </td>
@@ -60,4 +62,14 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block js_extras %}
+  <script>
+    function submit_with_updated_class_id(updt_id, form) {
+      alert(updt_id);
+      $("#updated_class_id").val(updt_id);
+      form.submit();
+    }
+  </script>
 {% endblock %}
