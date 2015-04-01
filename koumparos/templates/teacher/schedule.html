@@ -11,14 +11,14 @@
 {% block content %}
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3 col-md-2 sidebar">
+      <div class="col-sm-2 col-md-2 sidebar">
         <h3> {{ teacher.name }} </h3>
         <ul class="nav nav-sidebar">
           <li><a href="overview">Overview</a></li>
           <li class="active"><a href="#">Schedule<span class="sr-only">(current)</span></a></li>
         </ul>
       </div>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Schedule Classes</h1>
         <div class="col-sm-4 col-md-4">
           <form role="form" action="" method="POST">
@@ -59,7 +59,7 @@
               <div class="form-group col-sm-12 col-md-12">
                 <label for="time">Price</label>
                 <span>$</span>
-                <input type="number" class="form-control" placeholder="Amount" step="any" id="price" name="price">
+                <input type="number" class="form-control" placeholder="Amount" step="any" id="price" name="price" min="0">
               </div>
               <div class="col-sm-12 col-md-12">
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
