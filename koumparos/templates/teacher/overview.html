@@ -4,62 +4,56 @@
   <title>Classes Overview</title>
 {% endblock %}
 
+{% block nav_side_bar %}
+  <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+  <li><a href="schedule">Schedule</a></li>
+{% endblock %}
+
 {% block content %}
-  <div class="container-fluid">
-    <div class="col-md-2 sidebar">
-      <h3> {{ teacher.name }} </h3>
-      <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-        <li><a href="schedule">Schedule</a></li>
-      </ul>
-    </div>
-    <div class="col-md-10 col-md-offset-2 main">
-      <h1 class="page-header">Classes Overview</h1>
-      <div class="col-md-12">
-        <h2 class="sub-header">Near Future</h2>
-        <div class="table-responsive">
-          <form action="" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="updated_class" id="updated_class_id" value="">
-            <table class="table table-condensed table-striped">
-              <thead>
-                <tr>
-                  <th class="col-sm-1.5">Date</th>
-                  <th class="col-sm-1.5">Start</th>
-                  <th class="col-sm-1.5">Finish</th>
-                  <th class="col-sm-2">Student</th>
-                  <th class="col-sm-2">Location</th>
-                  <th class="col-sm-1.5">Earnings</th>
-                  <th class="col-sm-2">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for class in classes %}
-                  <tr>
-                    <td>{{ class.date }}</td>
-                    <td>{{ class.start_time }}</td>
-                    <td>{{ class.finish_time }}</td>
-                    <td>{{ class.student }}</td>
-                    <td>{{ class.location }}</td>
-                    <td>$ {{ class.price }}</td>
-                    <td>
-                      <select name="class_status_{{ class.id }}" value="{{ class.id }}" onchange="submit_with_updated_class_id({{ class.id }}, this.form)">
-                        {% for choices in status_choices %}
-                          {% ifequal choices.0 class.status %}
-                            <option value="{{ choices.0 }}" selected="selected">{{ choices.1 }}</option>
-                          {% else %}
-                            <option value="{{ choices.0 }}">{{ choices.1 }}</option>
-                          {% endifequal %}
-                        {% endfor %}
-                      </select>
-                    </td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </form>
-        </div>
-      </div>
+  <h1 class="page-header">Classes Overview</h1>
+  <div class="col-md-12">
+    <h2 class="sub-header">Near Future</h2>
+    <div class="table-responsive">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="updated_class" id="updated_class_id" value="">
+        <table class="table table-condensed table-striped">
+          <thead>
+            <tr>
+              <th class="col-sm-1.5">Date</th>
+              <th class="col-sm-1.5">Start</th>
+              <th class="col-sm-1.5">Finish</th>
+              <th class="col-sm-2">Student</th>
+              <th class="col-sm-2">Location</th>
+              <th class="col-sm-1.5">Earnings</th>
+              <th class="col-sm-2">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for class in classes %}
+              <tr>
+                <td>{{ class.date }}</td>
+                <td>{{ class.start_time }}</td>
+                <td>{{ class.finish_time }}</td>
+                <td>{{ class.student }}</td>
+                <td>{{ class.location }}</td>
+                <td>$ {{ class.price }}</td>
+                <td>
+                  <select name="class_status_{{ class.id }}" value="{{ class.id }}" onchange="submit_with_updated_class_id({{ class.id }}, this.form)">
+                    {% for choices in status_choices %}
+                      {% ifequal choices.0 class.status %}
+                        <option value="{{ choices.0 }}" selected="selected">{{ choices.1 }}</option>
+                      {% else %}
+                        <option value="{{ choices.0 }}">{{ choices.1 }}</option>
+                      {% endifequal %}
+                    {% endfor %}
+                  </select>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
     </div>
   </div>
 {% endblock %}
