@@ -18,30 +18,42 @@
       <div class="col-md-12">
         <h2 class="sub-header">Near Future</h2>
         <div class="table-responsive">
-          <table class="table table-condensed table-striped">
-            <thead>
-              <tr>
-                <th class="col-sm-2">Date</th>
-                <th class="col-sm-2">Time</th>
-                <th class="col-sm-2">Student</th>
-                <th class="col-sm-2">Address</th>
-                <th class="col-sm-2">Earnings</th>
-                <th class="col-sm-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for class in classes %}
+          <form action="" method="POST">
+            <table class="table table-condensed table-striped">
+              <thead>
                 <tr>
-                  <td>{{ class.date }}</td>
-                  <td>{{ class.start_time }} - {{ class.finish_time }}</td>
-                  <td>{{ class.student }}</td>
-                  <td>{{ class.location }}</td>
-                  <td>$ {{ class.price }}</td>
-                  <td>{{ class.status }}</td>
+                  <th class="col-sm-2">Date</th>
+                  <th class="col-sm-2">Time</th>
+                  <th class="col-sm-2">Student</th>
+                  <th class="col-sm-2">Address</th>
+                  <th class="col-sm-2">Earnings</th>
+                  <th class="col-sm-2">Status</th>
                 </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {% for class in classes %}
+                  <tr>
+                    <td>{{ class.date }}</td>
+                    <td>{{ class.start_time }} - {{ class.finish_time }}</td>
+                    <td>{{ class.student }}</td>
+                    <td>{{ class.location }}</td>
+                    <td>$ {{ class.price }}</td>
+                    <td>
+                      <select id="student_id" name="student_id">
+                        {% for choices in status_choices %}
+                          {% if choices.1 == class.status %}
+                            <option value="{{ choices.0 }}" selected="selected">{{ choices.1 }}</option>
+                          {% else %}
+                            <option value="{{ choices.0 }}">{{ choices.1 }}</option>
+                          {% endif %}
+                        {% endfor %}
+                      </select>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </form>
         </div>
       </div>
     </div>

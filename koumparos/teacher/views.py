@@ -12,6 +12,7 @@ def overview(request, id):
     info = {
         'teacher': Teacher.objects.filter(id=id)[0],
         'classes': Class.objects.filter(teacher=id),
+        'status_choices': Class.STATUS_CHOICES,
     }
     return render_to_response('teacher/overview.html', info)
 
