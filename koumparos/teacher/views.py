@@ -20,7 +20,8 @@ def overview(request, id):
         tgt_class.status = tgt_status
         tgt_class.save()
 
-    todo_classes = Class.objects.filter(teacher=id, status=Class.ST_TODO)
+    max_date = (datetime.now() + timedelta(days=14)).date
+    todo_classes = Class.objects.filter(teacher=id, status=Class.ST_TODO, date__lte=max_date)
     info = {
         'teacher': Teacher.objects.filter(id=id)[0],
         'classes': todo_classes.order_by('date', 'start_time'),
