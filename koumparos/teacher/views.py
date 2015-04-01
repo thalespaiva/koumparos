@@ -25,15 +25,16 @@ def schedule(request, id):
     if request.method == "POST":
         student = Student.objects.filter(id=request.POST['student_id'])[0]
         teacher = info['teacher']
-        #subject = request.POST['subject']
-        cost = request.POST['price']
+        price = request.POST['price']
         date = request.POST['class_date']
         start = request.POST['start_time']
         finish = request.POST['finish_time']
+        location = request.POST['location']
 
         new_class = Class(
             student=student, teacher=teacher, subject='MATH',
-            cost=cost, date=date, start_time=start, finish_time=finish)
+            price=price, location=location, date=date, start_time=start,
+            finish_time=finish)
         new_class.save()
 
     return render_to_response('teacher/schedule.html', info,

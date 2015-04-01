@@ -22,8 +22,23 @@ class Teacher(models.Model):
 class Class(models.Model):
     student = models.ForeignKey(Student)
     teacher = models.ForeignKey(Teacher)
-    subject = models.CharField(max_length=100)
-    cost = models.FloatField()
+    subject = models.CharField(max_length=100, null=True)
+    location = models.CharField(max_length=100, null=True)
+    price = models.FloatField()
     date = models.DateField()
     start_time = models.TimeField()
     finish_time = models.TimeField()
+
+    ST_TODO = 'TODO'
+    ST_DONE = 'DONE'
+    ST_PAID = 'PAID'
+    ST_RCVD = 'RCVD'
+
+    STATUS_CHOICES = (
+        (ST_TODO, 'To Do'),
+        (ST_DONE, 'Done'),
+        (ST_PAID, 'Paid'),
+        (ST_RCVD, 'Received'),
+    )
+    status = models.CharField(
+        max_length=4, choices=STATUS_CHOICES, default=ST_TODO)
