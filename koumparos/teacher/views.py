@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-# from django.http import HttpResponse
+from django.http import Http404
 
 from datetime import datetime, timedelta
 
@@ -10,7 +10,7 @@ from teacher.models import Teacher, Student, Class
 # Create your views here.
 
 
-def overview(request, id):
+def overview(request, id, class_status):
 
     if request.method == "POST":
         updated_class = request.POST['updated_class']
@@ -20,13 +20,25 @@ def overview(request, id):
         tgt_class.status = tgt_status
         tgt_class.save()
 
-    max_date = (datetime.now() + timedelta(days=14)).date
-    todo_classes = Class.objects.filter(teacher=id, status=Class.ST_TODO, date__lte=max_date)
+    if class_status is None:
+        class_status = Class.ST_TODO
+
+    class_status = class_status.upper()
+    if class_status not in Class.POSSIBLE_STATUS:
+        raise Http404
+
+    teacher_classes = Class.objects.filter(teacher=id)
+    filtered_classes = teacher_classes.filter(status=class_status)
+    status_flags = dict([(s, "") for s in Class.POSSIBLE_STATUS])
+    status_flags[class_status] = "active"
+
     info = {
         'teacher': Teacher.objects.filter(id=id)[0],
-        'classes': todo_classes.order_by('date', 'start_time'),
+        'classes': filtered_classes.order_by('date', 'start_time'),
         'status_choices': Class.STATUS_CHOICES,
+        'status_flags': status_flags,
     }
+
     return render_to_response('teacher/overview.html', info,
                               RequestContext(request))
 

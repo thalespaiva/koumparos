@@ -40,5 +40,8 @@ class Class(models.Model):
         (ST_PAID, 'Paid'),
         (ST_RCVD, 'Received'),
     )
+
+    POSSIBLE_STATUS = [s[0] for s in STATUS_CHOICES]
+
     status = models.CharField(
         max_length=4, choices=STATUS_CHOICES, default=ST_TODO)

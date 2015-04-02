@@ -6,14 +6,19 @@
 
 {% block nav_side_bar %}
   <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-  <li><a href="schedule">Schedule</a></li>
-  <li><a href="dashboard">Dashboard</a></li>
+  <li><a href="../schedule">Schedule</a></li>
+  <li><a href="../dashboard">Dashboard</a></li>
 {% endblock %}
 
 {% block content %}
   <h1 class="page-header">Classes Overview</h1>
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="{{ status_flags.TODO }}"><a href="todo">To Do</a></li>
+    <li role="presentation" class="{{ status_flags.DONE }}"><a href="done">Done</a></li>
+    <li role="presentation" class="{{ status_flags.RCVD }}"><a href="rcvd">Received</a></li>
+    <li role="presentation" class="{{ status_flags.PAID }}"><a href="paid">Paid</a></li>
+  </ul>
   <div class="container-fluid">
-    <h2 class="sub-header">Next 2 Weeks</h2>
     <div class="table-responsive">
       <form action="" method="POST">
         {% csrf_token %}
