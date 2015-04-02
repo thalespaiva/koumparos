@@ -75,13 +75,19 @@ def schedule(request, id):
 def dashboard(request, id):
     from django.db.models import Sum
 
-    classes_this_month = Class.objects.filter(
+    classes_on_month = Class.objects.filter(
         teacher_id=id, date__month=datetime.now().month)
-    expected_earnings_this_month = classes_this_month.aggregate(Sum("price"))
 
+    month_target_info = {}
+    for status in Class.POSSIBLE_STATUS:
+        earnings = classes_on_month.filter(
+            status=status).aggregate(total=Sum("price"))
+        month_target_info[status] = earnings['total'] or 0
+
+    print(month_target_info)
     info = {
         'teacher': Teacher.objects.filter(id=id)[0],
-        'month_target': expected_earnings_this_month,
+        'month_target_info': month_target_info,
     }
 
     return render_to_response('teacher/dashboard.html', info)

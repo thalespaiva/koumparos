@@ -8,25 +8,67 @@
   <li><a href="overview">Overview <span class="sr-only">(current)</span></a></li>
   <li><a href="schedule">Schedule</a></li>
   <li class="active"><a href="#">Dashboard</a></li>
+
 {% endblock %}
 
 {% block content %}
   <h1 class="page-header">Dashboard</h1>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
-        <h2>Month Target</h2>
-        {{ month_target }}
+      <div class="col-md-6 text-center">
+        <h2 class="sub-header">Month Target</h2>
+        <div class="row">
+          <canvas id="canvas_month_target" style="width:100%;"></canvas>
+          <div id="canvas_month_target_legend"></div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h2># Students</h2>
+      <div class="col-md-2 text-center">
+        <h2 class="sub-header">Month Target</h2>
+        <div>
+          <canvas id="canvas_month_target" style="width:100%;" ></canvas>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h2>Accum/week</h2>
+      <div class="col-md-4 text-center">
+        <h2 class="sub-header">Number of Students</h2>
       </div>
     </div>
   </div>
 {% endblock %}
 
 {% block js_extras %}
+  <script src="/static/jquery/jquery.min.js"></script>
+  <script src="/static/chart.js/Chart.min.js"></script>
+  <script>
+    var data = [
+        {
+            value: {{ month_target_info.TODO }},
+            color:"#A33B35",
+            highlight: "#B2514B",
+            label: "To Do"
+        },
+        {
+            value: {{ month_target_info.DONE }},
+            color:"#C3B756",
+            highlight: "#D1C56A",
+            label: "Done"
+        },
+        {
+            value: {{ month_target_info.PAID }},
+            color: "#407BAE",
+            highlight: "#568DBD",
+            label: "Paid"
+        },
+        {
+            value: {{ month_target_info.RCVD }},
+            color: "#85C254",
+            highlight: "#96CF68",
+            label: "Received"
+        },
+    ]
+
+    var month_target= document.getElementById("canvas_month_target").getContext("2d");
+    var month_target_chart = new Chart(month_target).Pie(data);
+    var legend = month_target_chart.generateLegend();
+    $('#canvas_month_target_legend').append(legend);
+  </script>
 {% endblock %}
